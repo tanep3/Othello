@@ -32,26 +32,26 @@ public class Game {
 			Location loc;
 
 			//黒の手番
-			if(canBlack(reverse)){
+			if(reverse.canNext("black")){
 				System.out.println("黒の手番です。");
 				loc=player1.teban(board);
 				reverse.reverse("black", loc);
 				board.display();
 				win = point.checkPoint(board);
 				point.display();
-			}else if(!canWhite(reverse)){
+			}else if(!reverse.canNext("white")){
 				break;
 			}
 
 			//白の手番
-			if(canWhite(reverse)){
+			if(reverse.canNext("white")){
 				System.out.println("白の手番です。");
 				loc=player2.teban(board);
 				reverse.reverse("white", loc);
 				board.display();
 				win = point.checkPoint(board);
 				point.display();
-			}else if(!canBlack(reverse)){
+			}else if(!reverse.canNext("black")){
 				break;
 			}
 		}
@@ -67,35 +67,6 @@ public class Game {
 			System.out.println("引き分けです。");
 			break;
 		}
-	}
-
-	//石が置ける場所があればtrueを返す。
-	private boolean canBlack(Reverse reverse){
-		boolean fok=false;
-
-		for(int i=0;i<8;i++){
-			for(int j=0;j<8;j++){
-				Location loc = new Location(j,i);
-				if(reverse.canPut("black",loc)){
-					fok = true;
-				}
-			}
-		}
-		return fok;
-	}
-
-	private boolean canWhite(Reverse reverse){
-		boolean fok=false;
-
-		for(int i=0;i<8;i++){
-			for(int j=0;j<8;j++){
-				Location loc = new Location(j,i);
-				if(reverse.canPut("white", loc)){
-					fok = true;
-				}
-			}
-		}
-		return fok;
 	}
 
 }

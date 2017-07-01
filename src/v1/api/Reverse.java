@@ -132,5 +132,22 @@ public class Reverse {
 			loc.inc(direction);
 		}
 	}
+	
+	//石が置ける場所があればtrueを返す。
+	//開始判定、終了判定に使う。
+	public boolean canNext(String color){
+		boolean fok=false;
+
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				Location loc = new Location(j,i);
+				if(canPut(color,loc)){
+					fok = true;
+				}
+			}
+		}
+		return fok;
+	}
+
 
 }
