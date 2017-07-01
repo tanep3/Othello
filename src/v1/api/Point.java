@@ -11,6 +11,12 @@ public class Point {
 		white=2;
 	}
 
+	//このコンストラクタでPointオブジェクトを複製できます。
+	public Point(Point point){
+		this.black = point.getBlack();
+		this.white = point.getWhite();
+	}
+
 	public void setBlack(int p){this.black=p;}
 	public void setWhite(int p){this.white=p;}
 	public int getBlack(){return this.black;}

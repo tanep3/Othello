@@ -10,21 +10,21 @@ package v1.api;
 //つまり、reverse関数実行前に必ずcanPut関数でチェックをして下さい。
 public class Reverse {
 	private Board board;
-	
+
 	public Reverse(Board board){
 		this.board=board;
 	}
-	
+
 	//石がその場所に置けるか判定する関数。
 	public boolean canPut(String color, Location location){
 		//もし空白じゃなかったら置けない。
 		if(!board.getStone(location).equals("null")) return false;
-		
+
 		boolean fok=false; //置けるかどうかのフラグ
-		
+
 		//右
 		if(canPutOneWay(color,location,"R")) fok=true;
-		
+
 		//右下
 		if(canPutOneWay(color,location,"RD")) fok=true;
 
@@ -53,9 +53,12 @@ public class Reverse {
 		Location loc = new Location(location);
 		String invColor="black";
 		if(color.equals("black")) invColor="white";
-		
+//System.out.println(color+" inv:"+invColor);
+
 		boolean fsafe=true; //検索範囲がボード内かどうかのフラグ
 		if(loc.inc(direction)) {
+//System.out.println(board.getStone(loc));
+//System.out.println(!board.getStone(loc).equals(invColor));
 			if(!board.getStone(loc).equals(invColor)) return false;
 			//最初のマスが反対色だったらチェック開始
 			while(board.getStone(loc).equals(invColor)){
@@ -67,63 +70,64 @@ public class Reverse {
 			}
 			//自分のコマがあるかチェック
 			if(fsafe){
+//System.out.println("fsafe"+board.getStone(loc));
 				if(board.getStone(loc).equals(color)) return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public void reverse(String color, Location loc){
 		board.putStone(color, loc);
-		
+
 		//右
 		if(canPutOneWay(color,loc,"R")){
 			revOneWay(color,loc,"R");
 		}
-		
+
 		//右下
 		if(canPutOneWay(color,loc,"RD")){
 			revOneWay(color,loc,"RD");
 		}
-		
+
 		//下
 		if(canPutOneWay(color,loc,"D")){
 			revOneWay(color,loc,"D");
 		}
-		
+
 		//左下
 		if(canPutOneWay(color,loc,"LD")){
 			revOneWay(color,loc,"LD");
 		}
-		
+
 		//左
 		if(canPutOneWay(color,loc,"L")){
 			revOneWay(color,loc,"L");
 		}
-		
+
 		//左上
 		if(canPutOneWay(color,loc,"LU")){
 			revOneWay(color,loc,"LU");
 		}
-		
+
 		//上
 		if(canPutOneWay(color,loc,"U")){
 			revOneWay(color,loc,"U");
 		}
-		
+
 		//右上
 		if(canPutOneWay(color,loc,"RU")){
 			revOneWay(color,loc,"RU");
 		}
-		
+
 
 	}
-	
+
 	private void revOneWay(String color, Location location, String direction){
 		String invColor="black";
 		if(color.equals("black")) invColor="white";
 		Location loc=new Location(location);
-		
+
 		loc.inc(direction);
 		while(board.getStone(loc).equals(invColor)){
 			//コマをひっくり返す
@@ -132,7 +136,8 @@ public class Reverse {
 			loc.inc(direction);
 		}
 	}
-	
+
+	//指定した色の石が置ける場所があるか判定する関数。
 	//石が置ける場所があればtrueを返す。
 	//開始判定、終了判定に使う。
 	public boolean canNext(String color){
