@@ -17,19 +17,18 @@ public class Tane1 extends Player {
 	public Location teban(Board boardmaster){
 
 		ArrayList<Aspect> aspects = new ArrayList<Aspect>();
-		Board board = new Board(boardmaster);
-		Reverse reverse = new Reverse(board);
 
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
 				Location loc = new Location(j,i);
+				Board board = new Board(boardmaster);
+				Reverse reverse = new Reverse(board);
 				if(reverse.canPut(color, loc)){
 					reverse.reverse(color, loc);
 					aspects.add(new Aspect(color, loc, board));
 				}
 			}
 		}
-
 		int eval= -9999;
 		Location location=new Location();
 		for(int i=0;i<aspects.size();i++){
