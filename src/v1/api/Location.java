@@ -5,8 +5,8 @@ package v1.api;
 //方向を与えると座標を一つ進めてくれる便利なinc関数も用意しています。
 //ぜひinc関数をご活用下さい。
 public class Location {
-	protected int x;
-	protected int y;
+	private int x;
+	private int y;
 	
 	public Location(){
 		setX(0);
